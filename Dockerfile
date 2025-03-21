@@ -5,6 +5,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-slim
-WORKDIR /appCOPY --from=build /app/target/*.jar app.jar
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8081
 CMD ["sh", "-c", "sleep 10 && java -jar app.jar"]
